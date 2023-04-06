@@ -9,19 +9,12 @@ import requests
 
 
 def main(param_dict):
-    """Main Function
-
-    Args:
-        param_dict (Dict): input paramater
-
-    Returns:
-        _type_: _description_ TODO
-    """
+    databaseName = "dealerships"
 
     try:
         client = Cloudant.iam(
-            account_name=param_dict["COUCH_USERNAME"],
-            api_key=param_dict["IAM_API_KEY"],
+            account_name=param_dict["32826014-9f9f-469a-bb30-55d0a2051bbd-bluemix"],
+            api_key=param_dict["V0PPkzOLLhz4YlrwSnIFDjptkuHbv3_4hxu-XRJUTSKi"],
             connect=True,
         )
         print(f"Databases: {client.all_dbs()}")
