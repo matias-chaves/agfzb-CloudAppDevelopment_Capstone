@@ -17,12 +17,12 @@
     <!--Add a nav bar here -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Dealership Review</a>
+          <a class="navbar-brand" href="index.html">Dealership Review</a>
             <ul class="nav navbar-nav navbar-right">
                 <div class="collapse navbar-collapse">
                     <div class="navbar-nav">
-                    <a class="nav-link" aria-current="page" href="{% url 'djangoapp:about' %}">About Us</a>
-                    <a class="nav-link" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+                    <a class="nav-link" aria-current="page" href="about.html">About Us</a>
+                    <a class="nav-link" href="contact.html">Contact Us</a>
                     </div>
                 </div>
                 {% if user.is_authenticated %}
@@ -32,11 +32,11 @@
                 </li>
                 {% else %}
                 <li>
-                    <form class="form-inline" action="{% url 'djangoapp:login' %}" method="POST">
+                    <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
                         {% csrf_token %}
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="username" name='username'>
-                            <input class="form-control" type="password" placeholder="password" name='password'>
+                            <input class="form-control" type="text" placeholder="Username">
+                            <input class="form-control" type="password" placeholder="Password">
                             <button class="btn btn-primary mx-1">Login</button>
                             <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
                         </div>
@@ -48,7 +48,15 @@
         </div>
       </nav>
 
-    <!--Add a dealer table here -->
+    <main class="text-center">
+        <h3>Welcome to Best Cars dealership, home to the best cars in North America. We sell and imported cards at reasonable prices.</h3>
+        <br>
+        <h3>Reach us by our telephone line +12321 12312312</h3>
+        <br>
+        <h3>Also you can visit us in Lorem Ipsum n123</h3>
+
+
+    </main>
 
     </body>
 

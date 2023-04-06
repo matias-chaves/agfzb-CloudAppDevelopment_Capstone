@@ -6,6 +6,60 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
     <body>
-    <!--Add a registration form here -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="index.html">Dealership Review</a>
+                <ul class="nav navbar-nav navbar-right">
+                    <div class="collapse navbar-collapse">
+                        <div class="navbar-nav">
+                        <a class="nav-link" aria-current="page" href="about.html">About Us</a>
+                        <a class="nav-link" href="contact.html">Contact Us</a>
+                        </div>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a class="btn btn-link" href="#">({{ user.username }})</a>
+                        <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <form class="form-inline" action="{% url 'djangoapp:login' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="username" name="username">
+                                <input class="form-control" type="password" placeholder="Password" name="password">
+                                <button class="btn btn-primary mx-1">Login</button>
+                                <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                            </div>
+                        </form>
+                    </li>
+                    {% endif %}
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+
+          <form action="{% url 'djangoapp:registration' %}" method="POST">
+            <div class="container lead mt-5 text-center text-left">
+                <h1 class="text-left">Sign Up</h1>
+                <br>
+                <div class="text-left">
+                    <label><b>User Name</b></label>
+                    <input class="form-control" type="text" placeholder="UserName" name='username'>
+                    <label><b>First Name</b></label>
+                    <input class="form-control" type="text" placeholder="FirstName" name='firstname'>
+                    <label><b>Last Name</b></label>
+                    <input class="form-control" type="text" placeholder="LastName" name='lastname'>
+                    <label><b>Password</b></label>
+                    <input class="form-control" type="password" placeholder="Password" name='password'>
+                </div>
+                <div>
+                    {% csrf_token %}
+                    <button class="btn btn-primary mt-3 btn-block" type="submit">Sign Up</button>
+                </div>
+
+            </div>
+          </form>
     </body>
 </html>
