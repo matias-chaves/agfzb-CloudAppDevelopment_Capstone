@@ -11,6 +11,86 @@
 
 </head>
     <body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Dealership Review</a>
+            <ul class="nav navbar-nav navbar-right">
+                <div class="collapse navbar-collapse">
+                    <div class="navbar-nav">
+                    <a class="nav-link" aria-current="page" href="{% url 'djangoapp:about' %}">About Us</a>
+                    <a class="nav-link" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+                    </div>
+                </div>
+                {% if user.is_authenticated %}
+                <li>
+                    <a class="btn btn-link" href="#">{{ user.first_name }} ({{ user.username }})</a>
+                    <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                    <form class="form-inline" action="{% url 'djangoapp:login' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="username" name='username'>
+                            <input class="form-control" type="password" placeholder="password" name='password'>
+                            <button class="btn btn-primary mx-1">Login</button>
+                            <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                        </div>
+                    </form>
+                </li>
+                {% endif %}
+            </ul>
+            </div>
+        </div>
+        </nav>
+
     <!--Add review form here -->
+    <div class="container mt-5">
+        {% if user.is_authenticated %}
+        <div class="row justify-content-center" id="collapseExample">
+            <div class="card card-body col-md-6">
+                <form class="form-inline0" action="{% url 'djangoapp:add_review' dealerId %}" method="post">
+                    {% csrf_token %}
+
+                    <label class="h6" for="name">Your Name:</label>
+                    <input type="text" class="form-control mb-3" placeholder="Your name" name="name" id="name"
+                        value="{{user.first_name}}" />
+
+                    <label class="h6" for="review_text">Enter the review content:</label>
+                    <textarea class="form-control mb-3" placeholder="Your review" name="review_text"
+                        id="review_text"></textarea>
+
+                    <hr class="mb-3" />
+
+                    <label for="car" class="h6">Select your car (model-make-year):</label>
+                    <select name="car" id="car" class="form-select form-control mb-3" required>
+                        {% for car in cars %}
+                        <option selected value={{car.id}}>
+                            {{car.name}}-{{car.make.name}}-{{ car.year|date:"Y" }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                    <div
+                        class="input-group-text0 d-flex justify-content-between align-items-center bg-transparent mb-3">
+                        <label class="h6">Has purchased the car from {{dealerships.full_name}}?</label>
+                        <input type="checkbox" aria-label="Checkbox for following text input" name="purchase">
+                        <span />
+                    </div>
+
+                    <label class="h6" for="purchasedate">Select Your Purchase Date:</label>
+                    <input type="date" class="form-control mb-3" placeholder="Purchase date" name="purchase_date"
+                        id="purchasedate" />
+
+                    <input type="hidden" name="dealership" value="{{dealer_id}}" />
+                    <button class="btn btn-success btn-block" type="submit">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
     </body>
 </html>
